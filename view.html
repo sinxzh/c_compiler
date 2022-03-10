@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compiler</title>
+    <style>
+        table,
+        td {
+            border: 1px solid #333;
+        }
+
+        table {
+            float: left;
+        }
+
+        thead,
+        tfoot {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div style="margin-bottom: 5px">Source Code</div>
+<form action="/compiler/new" method="post">
+    <label>
+        <textarea rows="13" cols="30" name="sourceCode">{{ .SourceCode }}</textarea>
+    </label>
+    <input type="submit" value="execute">
+</form>
+<table style="margin-top: 14px; margin-right: 30px; width: 300px; text-align: center">
+    <thead>
+    <tr>
+        <th colspan="4">Lexer tokens</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>id-syn</td>
+        <td>row</td>
+        <td>col</td>
+    </tr>
+    {{ range .Tokens }}
+    <tr>
+        <td>{{ .Value }}</td>
+        <td>{{ .Syn }}</td>
+        <td>{{ .Row }}</td>
+        <td>{{ .Col }}</td>
+    </tr>
+    {{ end }}
+    </tbody>
+</table>
+<table style="margin-top: 14px; width: 300px; text-align: center">
+    <thead>
+    <tr>
+        <th colspan="5">Analyzer quads</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>idx</td>
+        <td>op</td>
+        <td>arg1</td>
+        <td>arg2</td>
+        <td>res</td>
+    </tr>
+    {{ range .Quads }}
+    <tr>
+        <td>{{ .Idx }}</td>
+        <td>{{ .Quad.Op }}</td>
+        <td>{{ .Quad.Arg1 }}</td>
+        <td>{{ .Quad.Arg2 }}</td>
+        <td>{{ .Quad.Res }}</td>
+    </tr>
+    {{ end }}
+    </tbody>
+</table>
+</body>
+</html>
